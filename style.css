@@ -1,0 +1,130 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: system-ui;
+}
+/* html,img, .any-emage-element{
+    filter: invert(1);
+} */
+
+body{
+    
+
+    background: #222;
+    color: #fff;
+    
+}
+
+/* 
+.active{
+    background: rgb(175, 212, 226);
+} */
+
+
+.crud{
+    width: 80%;
+    margin: auto;
+    
+    
+}
+
+.head{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    margin: 10px 0;
+    letter-spacing: 4px;
+    font-weight: 600;
+
+    /* color: #000; */
+}
+.head p{
+    margin: 20px 0 ;
+}
+
+.inputs{
+    display: flex; 
+    flex-direction: column;
+    
+}
+input{
+    /* width: 100%; */
+    height: 30px;
+    outline: none;
+    border: none;
+    background: #111;
+    color: #fff;
+    margin: 4px 0;
+    border-radius: 4px;
+    padding: 4px;
+    transition: .5s;
+}
+input:focus{
+    background: #000;
+    transform: scale(1.02);
+}
+#total{
+    background: #a00d02;
+    padding: 8px 4px;
+    border-radius: 4px;
+    margin: 10px;
+}
+#total::before{
+    content: "Total: ";
+}
+
+
+button{
+    margin: 5px;
+    padding: 8px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    
+    background: rgba(255, 255, 255,.75);
+    transition: 0.5s;
+}
+button:hover{
+    background:#fff;
+    letter-spacing: 1px;
+}
+
+.outputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.search{
+    text-align: center;
+}
+
+.search button{
+    margin:5px 35px;
+    width: 40%;    
+}
+#delete-all{
+    width: 100%;
+}
+
+table{
+    margin: 20px 0;
+}
+
+table tr{
+    text-transform: uppercase;
+    
+}
+
+tr ,th{
+    padding: 5px;
+    
+}
+
+th button:hover{
+    background: #fff;
+    letter-spacing: normal;
+    
+}
+

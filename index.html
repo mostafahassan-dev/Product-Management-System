@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUDS Operations </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body >
+    
+    
+    <div class="crud">
+        <div class="head">
+            <h2>Cruds</h2>
+            <p>product managment system</p>
+        </div>
+
+        <div class="inputs">
+            <input type="text" id="title" placeholder="Title">
+            <div class="price">
+                <input onkeyup="getTotal()" type="number" id="price" placeholder="Price">
+                <input onkeyup="getTotal()" type="number" id="taxes" placeholder="Taxes">
+                <input onkeyup="getTotal()" type="number" id="ads" placeholder="Ads">
+                <input onkeyup="getTotal()" type="number" id="discount" placeholder="Discount">
+                <small id="total">00</small>
+            </div>
+            <input type="number" id="count"  placeholder="Count">
+            <input type="text" id="category" placeholder="Catecory">
+            <button id="submit">Create</button>
+
+        </div>
+
+        <div class="outputs">
+            <input onkeyup="searchData(this.value)" type="text" placeholder="Search" id="search">
+            <div class="search">
+                <button onclick="getShearcgMood(this.id)" id="search-title">Search By Title</button>
+                <button onclick="getShearcgMood(this.id)" id="search-category">Search By Category</button>
+            </div>
+            <div id="delete-all"></div>
+
+            <table>
+
+                <tr>
+                    <th>id</th>
+                    <th>titile</th>
+                    <th>price</th>
+                    <th>taxes</th>
+                    <th>ads</th>
+                    <th>discount</th>
+                    <th>total</th>
+                    <th>category</th>
+                    <th>uptdate</th>
+                    <th>delete</th>
+                </tr>
+
+                <tbody id="tbody">
+                    
+                </tbody>
+
+            </table>
+            
+
+        </div>
+    </div>
+    
+
+
+    <script src="main.js"></script>
+</body>
+</html>
