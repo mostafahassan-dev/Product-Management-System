@@ -10,7 +10,6 @@ let submit = document.getElementById('submit')
 
 let mood = 'create';
 let tmp;
-// console.log(title,price,taxes,ads,discount,total,count,category,submit)
 
 
 
@@ -28,24 +27,19 @@ function getTotal(){
 
 }
 
-
-
-
-
-
 // create product
 
-let dataPro;
+let data;
 
 if(localStorage.product != null){
-    dataPro = JSON.parse(localStorage.product)
+    data = JSON.parse(localStorage.product)
 
 }else{
-    dataPro = [];
+    data = [];
 }
 
 submit.onclick = function(){
-    let newPro ={
+    let newProduct ={
         title: title.value.toLowerCase() ,
         price: price.value ,
         taxes: taxes.value ,
@@ -55,21 +49,22 @@ submit.onclick = function(){
         count: count.value,
         category: category.value.toLowerCase(),
     }
+
     // clean data
     if (title.value != ''
         && price.value != '' 
         && category.value != ''
         && count.value < 101){
         if ( mood === 'create'){
-            if(newPro.count > 1){
-            for(let i = 0; i < newPro.count; i++){
-                dataPro.push(newPro);
+            if(newProduct.count > 1){
+            for(let i = 0; i < newProduct.count; i++){
+                data.push(newProduct);
             }    
             }else{
-                dataPro.push(newPro);
+                data.push(newProduct);
             }
         }else{
-            dataPro[ tmp ] = newPro ;
+            data[ tmp ] = newProduct ;
             mood = 'create';
             submit.innerHTML = 'Create';
             submit.style.background = 'rgba(255, 255, 255,.75)';
@@ -85,7 +80,7 @@ submit.onclick = function(){
     
     // save localstorge
 
-    localStorage.setItem('product', JSON.stringify(dataPro))
+    localStorage.setItem('product', JSON.stringify(data))
     
     
     showData()
@@ -102,6 +97,7 @@ function clearData(){
     total.innerHTML = '';
     count.value = '';
     category.value = '';
+    
 }
 
 // read
@@ -110,17 +106,17 @@ function showData(){
     getTotal()
 
     let table = '';
-    for(let i = 0; i < dataPro.length; i++ ){
+    for(let i = 0; i < data.length; i++ ){
         table += `
         <tr>
             <th>${i+1}</th>
-            <th>${dataPro[i].title}</th>
-            <th>${dataPro[i].price}</th>
-            <th>${dataPro[i].taxes}</th>
-            <th>${dataPro[i].ads}</th>
-            <th>${dataPro[i].discount}</th>
-            <th>${dataPro[i].total}</th>
-            <th>${dataPro[i].category}</th>
+            <th>${data[i].title}</th>
+            <th>${data[i].price}</th>
+            <th>${data[i].taxes}</th>
+            <th>${data[i].ads}</th>
+            <th>${data[i].discount}</th>
+            <th>${data[i].total}</th>
+            <th>${data[i].category}</th>
             <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
             <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
             </tr>
@@ -128,8 +124,8 @@ function showData(){
     }
     document.getElementById('tbody').innerHTML = table;
     let deleteAllbtn = document.getElementById("delete-all");
-    if(dataPro.length > 0){
-    deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all">Delete All (${dataPro.length})</button>`;
+    if(data.length > 0){
+    deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all">Delete All (${data.length})</button>`;
     
     }else {
         deleteAllbtn.innerHTML = '';
@@ -139,15 +135,15 @@ showData()
 
 // delete
 function deleteData(i){
-    dataPro.splice(i,1);
-    localStorage.product = JSON.stringify(dataPro);
+    data.splice(i,1);
+    localStorage.product = JSON.stringify(data);
 
     showData()
 }
 
 function deleteAll(){
     localStorage.clear()
-    dataPro.splice(0)
+    data.splice(0)
     showData()
 }
 
@@ -155,12 +151,12 @@ function deleteAll(){
 // update
 
 function updateData(i){
-    title.value = dataPro[i].title;
-    price.value = dataPro[i].price;
-    taxes.value = dataPro[i].taxes;
-    ads.value = dataPro[i].ads;
-    discount.value = dataPro[i].discount;
-    category.value = dataPro[i].category;
+    title.value = data[i].title;
+    price.value = data[i].price;
+    taxes.value = data[i].taxes;
+    ads.value = data[i].ads;
+    discount.value = data[i].discount;
+    category.value = data[i].category;
     
     getTotal()
     count.style.display='none';
@@ -184,7 +180,6 @@ let searchMood = 'title';
 function getShearcgMood(id){
     let search = document.getElementById('search');
 
-    // console.log(search)
 
     if(id == 'search-title' ){
         searchMood = 'title';
@@ -199,23 +194,23 @@ function getShearcgMood(id){
 }
 
 function searchData(value){
-    // console.log(value);
+    
 
     let table ='';
     if (searchMood == 'title'){
 
-        for(let i = 0; i < dataPro.length; i++){
-            if(dataPro[i].title.includes(value.toLowerCase() ) ){
+        for(let i = 0; i < data.length; i++){
+            if(data[i].title.includes(value.toLowerCase() ) ){
                 table += `
                 <tr>
                     <th>${i+1}</th>
-                    <th>${dataPro[i].title}</th>
-                    <th>${dataPro[i].price}</th>
-                    <th>${dataPro[i].taxes}</th>
-                    <th>${dataPro[i].ads}</th>
-                    <th>${dataPro[i].discount}</th>
-                    <th>${dataPro[i].total}</th>
-                    <th>${dataPro[i].category}</th>
+                    <th>${data[i].title}</th>
+                    <th>${data[i].price}</th>
+                    <th>${data[i].taxes}</th>
+                    <th>${data[i].ads}</th>
+                    <th>${data[i].discount}</th>
+                    <th>${data[i].total}</th>
+                    <th>${data[i].category}</th>
                     <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
                     <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
                 </tr>
@@ -225,18 +220,18 @@ function searchData(value){
 
 
     }else{ 
-        for(let i = 0; i < dataPro.length; i++){
-            if(dataPro[i].category.includes(value.toLowerCase() ) ){
+        for(let i = 0; i < data.length; i++){
+            if(data[i].category.includes(value.toLowerCase() ) ){
             table += `
             <tr>
                 <th>${i+1}</th>
-                <th>${dataPro[i].title}</th>
-                <th>${dataPro[i].price}</th>
-                <th>${dataPro[i].taxes}</th>
-                <th>${dataPro[i].ads}</th>
-                <th>${dataPro[i].discount}</th>
-                <th>${dataPro[i].total}</th>
-                <th>${dataPro[i].category}</th>
+                <th>${data[i].title}</th>
+                <th>${data[i].price}</th>
+                <th>${data[i].taxes}</th>
+                <th>${data[i].ads}</th>
+                <th>${data[i].discount}</th>
+                <th>${data[i].total}</th>
+                <th>${data[i].category}</th>
                 <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
                 <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
             </tr>
