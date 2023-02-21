@@ -12,7 +12,6 @@ let mood = 'create';
 let tmp;
 
 
-
 // get total
 function getTotal(){
     if(price.value != ''){
@@ -30,7 +29,6 @@ function getTotal(){
 // create product
 
 let data;
-
 if(localStorage.product != null){
     data = JSON.parse(localStorage.product)
 
@@ -86,18 +84,13 @@ submit.onclick = function(){
     showData()
 }
 
-
 // clearinputs
 function clearData(){
-    title.value = '';
-    price.value = '';
-    taxes.value = '';
-    ads.value = '';
-    discount.value = '';
-    total.innerHTML = '';
-    count.value = '';
-    category.value = '';
-    
+
+    let inputs= [title, price,  taxes, ads, discount, discount, total, count, category]
+    inputs.forEach((e)=>{
+        e.value = '';
+    })
 }
 
 // read
@@ -151,13 +144,14 @@ function deleteAll(){
 // update
 
 function updateData(i){
+
     title.value = data[i].title;
     price.value = data[i].price;
     taxes.value = data[i].taxes;
     ads.value = data[i].ads;
     discount.value = data[i].discount;
     category.value = data[i].category;
-    
+
     getTotal()
     count.style.display='none';
     submit.innerHTML = 'Update';
@@ -180,14 +174,13 @@ let searchMood = 'title';
 function getShearcgMood(id){
     let search = document.getElementById('search');
 
-
     if(id == 'search-title' ){
-        searchMood = 'title';
-        search.placeholder = 'Search By Title';
+        searchMood = 'Title';
+        
     }else{
-        searchMood = 'category';
-        search.placeholder = 'Search By Category';
+        searchMood = 'Category';
     }
+    search.placeholder = `Search By  ${searchMood}`;
     search.focus()
     search.value = '';
     showData()
@@ -195,11 +188,10 @@ function getShearcgMood(id){
 
 function searchData(value){
     
-
     let table ='';
-    if (searchMood == 'title'){
-
-        for(let i = 0; i < data.length; i++){
+    for(let i = 0; i < data.length; i++){
+        if (searchMood == 'title'){
+        
             if(data[i].title.includes(value.toLowerCase() ) ){
                 table += `
                 <tr>
@@ -216,11 +208,7 @@ function searchData(value){
                 </tr>
                     `;
             }
-        }
-
-
-    }else{ 
-        for(let i = 0; i < data.length; i++){
+        }else{ 
             if(data[i].category.includes(value.toLowerCase() ) ){
             table += `
             <tr>
@@ -236,9 +224,10 @@ function searchData(value){
                 <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
             </tr>
                 `;
-        }
+            }
     }
-    }
+}
+
     document.getElementById('tbody').innerHTML = table;
 
 }
