@@ -7,9 +7,90 @@ let total = document.getElementById('total')
 let count = document.getElementById('count')
 let category = document.getElementById('category')
 let submit = document.getElementById('submit')
-
+let search = document.getElementById('search');
 let mood = 'create';
 let tmp;
+
+
+// Light & Dark Mood
+
+let darkMood = 'light'
+
+let toggle = document.querySelector('.mood');
+let body = document.querySelector('body')
+let inputs= [title, price,  taxes, ads, discount, total, count, category ,search]
+let darkBtns = document.getElementsByTagName("button")
+// console.log(darkBtns);
+
+if (localStorage.getItem('mood') ) {
+    darkMood = localStorage.getItem('mood')
+
+    if(darkMood == 'dark'){
+
+        toggle.classList.add('active')
+        toggle.classList.remove('light')
+        //add Dark mood to body
+        body.classList.add('active')
+        //add Dark mood to inputs
+        inputs.forEach((input)=>{
+        input.classList.add('active')
+        })
+        //add Dark mood to btns
+        for (let i = 0; i < darkBtns.length; i++) {
+        let button = darkBtns[i];
+        button.classList.add('dark')
+        }
+    }else{
+        toggle.classList.remove('active')
+        //Remove Dark mood to body
+        body.classList.remove('active')
+        //Remove Dark mood to inputs
+        inputs.forEach((input)=>{
+        input.classList.remove('active')
+        })
+        //Remove Dark mood to btns
+        for (let i = 0; i < darkBtns.length; i++) {
+        let button = darkBtns[i];
+        button.classList.remove('dark')
+        }
+    }
+    
+    
+}
+
+
+
+// let darkMood = 'light'
+
+function toggleMoode (){
+
+        if (darkMood == 'light') {
+            darkMood = 'dark'
+            
+        } else {
+            darkMood = 'light'
+            
+        }
+
+        toggle.classList.toggle('active')
+        toggle.classList.toggle('light')
+        //Toggle Dark mood to body
+        body.classList.toggle('active')
+        //Toggle Dark mood to inputs
+        inputs.forEach((input)=>{
+            input.classList.toggle('active')
+        })
+        //Toggle Dark mood to btns
+        for (let i = 0; i < darkBtns.length; i++) {
+            let button = darkBtns[i];
+            button.classList.toggle('dark')
+            
+        }
+    
+        window.localStorage.setItem('mood', darkMood)
+    }  
+
+toggle.addEventListener('click', toggleMoode)
 
 
 // get total
@@ -18,10 +99,10 @@ function getTotal(){
         
         let result = (+price.value + +taxes.value + +ads.value) - +discount.value;
         total.innerHTML = result;
-        total.style.background ='#040';
+        total.style.background ='#1a75ff';
     }else{
         total.innerHTML = '';
-        total.style.background ='#a00d02';
+        total.style.background ='#4d004d';
     }
 
 }
@@ -65,8 +146,6 @@ submit.onclick = function(){
             data[ tmp ] = newProduct ;
             mood = 'create';
             submit.innerHTML = 'Create';
-            submit.style.background = 'rgba(255, 255, 255,.75)';
-            submit.style.color = '#000';
             count.style.display = 'block';
         
         }
@@ -87,7 +166,6 @@ submit.onclick = function(){
 // clearinputs
 function clearData(){
 
-    let inputs= [title, price,  taxes, ads, discount, discount, total, count, category]
     inputs.forEach((e)=>{
         e.value = '';
     })
@@ -95,30 +173,55 @@ function clearData(){
 
 // read
 
+
+
+
 function showData(){
     getTotal()
-
+    
     let table = '';
     for(let i = 0; i < data.length; i++ ){
-        table += `
-        <tr>
-            <th>${i+1}</th>
-            <th>${data[i].title}</th>
-            <th>${data[i].price}</th>
-            <th>${data[i].taxes}</th>
-            <th>${data[i].ads}</th>
-            <th>${data[i].discount}</th>
-            <th>${data[i].total}</th>
-            <th>${data[i].category}</th>
-            <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
-            <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
-            </tr>
-            `;
+        if( darkMood === 'dark'){
+            
+            table += `
+                    <tr>
+                        <th>${i+1}</th>
+                        <th>${data[i].title}</th>
+                        <th>${data[i].price}</th>
+                        <th>${data[i].taxes}</th>
+                        <th>${data[i].ads}</th>
+                        <th>${data[i].discount}</th>
+                        <th>${data[i].total}</th>
+                        <th>${data[i].category}</th>
+                        <th> <button onclick="updateData(${i})" id="update" class= "dark">Uptdate </button></th>
+                        <th> <button onclick="deleteData(${i} )" id="delete" class = "dark">Delete</button></th>
+                    </tr>
+                    `;
+        }else{
+            table += `
+            <tr>
+                <th>${i+1}</th>
+                <th>${data[i].title}</th>
+                <th>${data[i].price}</th>
+                <th>${data[i].taxes}</th>
+                <th>${data[i].ads}</th>
+                <th>${data[i].discount}</th>
+                <th>${data[i].total}</th>
+                <th>${data[i].category}</th>
+                <th> <button onclick="updateData(${i})" id="update" >Uptdate </button></th>
+                <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
+                </tr>
+                `;
+        }
     }
     document.getElementById('tbody').innerHTML = table;
     let deleteAllbtn = document.getElementById("delete-all");
-    if(data.length > 0){
-    deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all">Delete All (${data.length})</button>`;
+    if(data.length > 0 ){
+        if (darkMood === 'dark') {        
+            deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all" class ="dark" >Delete All (${data.length})</button>`;
+        }else{
+            deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all" >Delete All (${data.length})</button>`;
+        }
     
     }else {
         deleteAllbtn.innerHTML = '';
@@ -155,8 +258,6 @@ function updateData(i){
     getTotal()
     count.style.display='none';
     submit.innerHTML = 'Update';
-    submit.style.background = '#a3c2c2';
-    submit.style.color = '#000';
 
     mood = 'update';
     tmp = i;
@@ -172,13 +273,13 @@ function updateData(i){
 let searchMood = 'title';
 
 function getShearcgMood(id){
-    let search = document.getElementById('search');
+    
 
     if(id == 'search-title' ){
-        searchMood = 'Title';
+        searchMood = 'title';
         
     }else{
-        searchMood = 'Category';
+        searchMood = 'category';
     }
     search.placeholder = `Search By  ${searchMood}`;
     search.focus()
@@ -193,37 +294,78 @@ function searchData(value){
         if (searchMood == 'title'){
         
             if(data[i].title.includes(value.toLowerCase() ) ){
-                table += `
-                <tr>
-                    <th>${i+1}</th>
-                    <th>${data[i].title}</th>
-                    <th>${data[i].price}</th>
-                    <th>${data[i].taxes}</th>
-                    <th>${data[i].ads}</th>
-                    <th>${data[i].discount}</th>
-                    <th>${data[i].total}</th>
-                    <th>${data[i].category}</th>
-                    <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
-                    <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
-                </tr>
-                    `;
+                
+                if( darkMood === 'dark'){
+            
+                    table += `
+                    <tr>
+                        <th>${i+1}</th>
+                        <th>${data[i].title}</th>
+                        <th>${data[i].price}</th>
+                        <th>${data[i].taxes}</th>
+                        <th>${data[i].ads}</th>
+                        <th>${data[i].discount}</th>
+                        <th>${data[i].total}</th>
+                        <th>${data[i].category}</th>
+                        <th> <button onclick="updateData(${i})" id="update" class= "dark">Uptdate </button></th>
+                        <th> <button onclick="deleteData(${i} )" id="delete" class = "dark">Delete</button></th>
+                        </tr>
+                        `;
+                }else{
+                    table += `
+                    <tr>
+                        <th>${i+1}</th>
+                        <th>${data[i].title}</th>
+                        <th>${data[i].price}</th>
+                        <th>${data[i].taxes}</th>
+                        <th>${data[i].ads}</th>
+                        <th>${data[i].discount}</th>
+                        <th>${data[i].total}</th>
+                        <th>${data[i].category}</th>
+                        <th> <button onclick="updateData(${i})" id="update" >Uptdate </button></th>
+                        <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
+                        </tr>
+                        `;
+                }
+            
             }
+
+
         }else{ 
             if(data[i].category.includes(value.toLowerCase() ) ){
-            table += `
-            <tr>
-                <th>${i+1}</th>
-                <th>${data[i].title}</th>
-                <th>${data[i].price}</th>
-                <th>${data[i].taxes}</th>
-                <th>${data[i].ads}</th>
-                <th>${data[i].discount}</th>
-                <th>${data[i].total}</th>
-                <th>${data[i].category}</th>
-                <th> <button onclick="updateData(${i})" id="update">Uptdate </button></th>
-                <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
-            </tr>
-                `;
+            
+                if( darkMood === 'dark'){
+            
+                    table += `
+                    <tr>
+                        <th>${i+1}</th>
+                        <th>${data[i].title}</th>
+                        <th>${data[i].price}</th>
+                        <th>${data[i].taxes}</th>
+                        <th>${data[i].ads}</th>
+                        <th>${data[i].discount}</th>
+                        <th>${data[i].total}</th>
+                        <th>${data[i].category}</th>
+                        <th> <button onclick="updateData(${i})" id="update" class= "dark">Uptdate </button></th>
+                        <th> <button onclick="deleteData(${i} )" id="delete" class = "dark">Delete</button></th>
+                        </tr>
+                        `;
+                }else{
+                    table += `
+                    <tr>
+                        <th>${i+1}</th>
+                        <th>${data[i].title}</th>
+                        <th>${data[i].price}</th>
+                        <th>${data[i].taxes}</th>
+                        <th>${data[i].ads}</th>
+                        <th>${data[i].discount}</th>
+                        <th>${data[i].total}</th>
+                        <th>${data[i].category}</th>
+                        <th> <button onclick="updateData(${i})" id="update" >Uptdate </button></th>
+                        <th> <button onclick="deleteData(${i} )" id="delete">Delete</button></th>
+                        </tr>
+                        `;
+                }
             }
     }
 }
@@ -231,5 +373,4 @@ function searchData(value){
     document.getElementById('tbody').innerHTML = table;
 
 }
-
 

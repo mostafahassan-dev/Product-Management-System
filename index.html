@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body >
-    
+    <div class="mood light">
+        <i class="toggle"></i>
+    </div>
     
     <div class="crud">
+
         <div class="head">
             <h2>Cruds</h2>
             <p>product management system</p>
@@ -27,15 +30,15 @@
             </div>
             <input type="number" id="count"  placeholder="Count">
             <input type="text" id="category" placeholder="Catecory">
-            <button id="submit">Create</button>
+            <button  id="submit">Create</button>
 
         </div>
 
         <div class="outputs">
             <input onkeyup="searchData(this.value)" type="text" placeholder="Search" id="search">
             <div class="search">
-                <button onclick="getShearcgMood(this.id)" id="search-title">Search By Title</button>
-                <button onclick="getShearcgMood(this.id)" id="search-category">Search By Category</button>
+                <button onclick="getShearcgMood(this.id)" id="search-title" >Search By Title</button>
+                <button onclick="getShearcgMood(this.id)" id="search-category" >Search By Category</button>
             </div>
             <div id="delete-all"></div>
 
