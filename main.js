@@ -8,47 +8,47 @@ let count = document.getElementById('count')
 let category = document.getElementById('category')
 let submit = document.getElementById('submit')
 let search = document.getElementById('search');
-let mood = 'create';
+let mode = 'create';
 let tmp;
 
 
-// Light & Dark Mood
+// Light & Dark mode
 
-let darkMood = 'light'
+let darkmode = 'light'
 
-let toggle = document.querySelector('.mood');
+let toggle = document.querySelector('.mode');
 let body = document.querySelector('body')
 let inputs= [title, price,  taxes, ads, discount, total, count, category ,search]
 let darkBtns = document.getElementsByTagName("button")
 // console.log(darkBtns);
 
-if (localStorage.getItem('mood') ) {
-    darkMood = localStorage.getItem('mood')
+if (localStorage.getItem('mode') ) {
+    darkmode = localStorage.getItem('mode')
 
-    if(darkMood == 'dark'){
+    if(darkmode == 'dark'){
 
         toggle.classList.add('active')
         toggle.classList.remove('light')
-        //add Dark mood to body
+        //add Dark mode to body
         body.classList.add('active')
-        //add Dark mood to inputs
+        //add Dark mode to inputs
         inputs.forEach((input)=>{
         input.classList.add('active')
         })
-        //add Dark mood to btns
+        //add Dark mode to btns
         for (let i = 0; i < darkBtns.length; i++) {
         let button = darkBtns[i];
         button.classList.add('dark')
         }
     }else{
         toggle.classList.remove('active')
-        //Remove Dark mood to body
+        //Remove Dark mode to body
         body.classList.remove('active')
-        //Remove Dark mood to inputs
+        //Remove Dark mode to inputs
         inputs.forEach((input)=>{
         input.classList.remove('active')
         })
-        //Remove Dark mood to btns
+        //Remove Dark mode to btns
         for (let i = 0; i < darkBtns.length; i++) {
         let button = darkBtns[i];
         button.classList.remove('dark')
@@ -60,37 +60,37 @@ if (localStorage.getItem('mood') ) {
 
 
 
-// let darkMood = 'light'
+// let darkmode = 'light'
 
-function toggleMoode (){
+function togglemodee (){
 
-        if (darkMood == 'light') {
-            darkMood = 'dark'
+        if (darkmode == 'light') {
+            darkmode = 'dark'
             
         } else {
-            darkMood = 'light'
+            darkmode = 'light'
             
         }
 
         toggle.classList.toggle('active')
         toggle.classList.toggle('light')
-        //Toggle Dark mood to body
+        //Toggle Dark mode to body
         body.classList.toggle('active')
-        //Toggle Dark mood to inputs
+        //Toggle Dark mode to inputs
         inputs.forEach((input)=>{
             input.classList.toggle('active')
         })
-        //Toggle Dark mood to btns
+        //Toggle Dark mode to btns
         for (let i = 0; i < darkBtns.length; i++) {
             let button = darkBtns[i];
             button.classList.toggle('dark')
             
         }
     
-        window.localStorage.setItem('mood', darkMood)
+        window.localStorage.setItem('mode', darkmode)
     }  
 
-toggle.addEventListener('click', toggleMoode)
+toggle.addEventListener('click', togglemodee)
 
 
 // get total
@@ -134,7 +134,7 @@ submit.onclick = function(){
         && price.value != '' 
         && category.value != ''
         && count.value < 101){
-        if ( mood === 'create'){
+        if ( mode === 'create'){
             if(newProduct.count > 1){
             for(let i = 0; i < newProduct.count; i++){
                 data.push(newProduct);
@@ -144,7 +144,7 @@ submit.onclick = function(){
             }
         }else{
             data[ tmp ] = newProduct ;
-            mood = 'create';
+            mode = 'create';
             submit.innerHTML = 'Create';
             count.style.display = 'block';
         
@@ -181,7 +181,7 @@ function showData(){
     
     let table = '';
     for(let i = 0; i < data.length; i++ ){
-        if( darkMood === 'dark'){
+        if( darkmode === 'dark'){
             
             table += `
                     <tr>
@@ -217,7 +217,7 @@ function showData(){
     document.getElementById('tbody').innerHTML = table;
     let deleteAllbtn = document.getElementById("delete-all");
     if(data.length > 0 ){
-        if (darkMood === 'dark') {        
+        if (darkmode === 'dark') {        
             deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all" class ="dark" >Delete All (${data.length})</button>`;
         }else{
             deleteAllbtn.innerHTML = `<button onclick="deleteAll()" id="delete-all" >Delete All (${data.length})</button>`;
@@ -259,7 +259,7 @@ function updateData(i){
     count.style.display='none';
     submit.innerHTML = 'Update';
 
-    mood = 'update';
+    mode = 'update';
     tmp = i;
     scroll({
         top:0,
@@ -270,18 +270,18 @@ function updateData(i){
 
 //search
 
-let searchMood = 'title';
+let searchmode = 'title';
 
-function getShearcgMood(id){
+function getShearcgmode(id){
     
 
     if(id == 'search-title' ){
-        searchMood = 'title';
+        searchmode = 'title';
         
     }else{
-        searchMood = 'category';
+        searchmode = 'category';
     }
-    search.placeholder = `Search By  ${searchMood}`;
+    search.placeholder = `Search By  ${searchmode}`;
     search.focus()
     search.value = '';
     showData()
@@ -291,11 +291,11 @@ function searchData(value){
     
     let table ='';
     for(let i = 0; i < data.length; i++){
-        if (searchMood == 'title'){
+        if (searchmode == 'title'){
         
             if(data[i].title.includes(value.toLowerCase() ) ){
                 
-                if( darkMood === 'dark'){
+                if( darkmode === 'dark'){
             
                     table += `
                     <tr>
@@ -334,7 +334,7 @@ function searchData(value){
         }else{ 
             if(data[i].category.includes(value.toLowerCase() ) ){
             
-                if( darkMood === 'dark'){
+                if( darkmode === 'dark'){
             
                     table += `
                     <tr>
