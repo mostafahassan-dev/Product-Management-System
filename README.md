@@ -1,7 +1,6 @@
 # Cruds oprations
 
-Built a web application for managing customer data using HTML, CSS, and Vanilla Javascript
-Consists of a static layout using HTML and CSS, developed JavaScript functions to handle customer data, and implemented CRUD operations to handle customer data, such as adding, updating, and deleting customer records.
+A web application for efficiently managing customer data using HTML, CSS, and Vanilla JavaScript.<br> The application features a static layout created with HTML and CSS, alongside JavaScript functions to handle data. <br> Implemented CRUD operations, including adding, updating, and deleting customer records
 
 ### Demo:
 - https://mostafa-zewail77.github.io/cruds-oprations/
