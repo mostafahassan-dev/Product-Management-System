@@ -11,10 +11,9 @@ const elements = {
     category: document.getElementById('category'),
     submit: document.getElementById('submit'),
     search: document.getElementById('search'),
-
     toggle: document.querySelector('.mode'),
     body: document.querySelector('body'),
-    darkBtns: document.getElementsByTagName('button'),
+    
 };
 
 // Variables
@@ -57,7 +56,6 @@ if(localStorage.product != null){
 }else{
     data = [];
 }
-
 
 function handleSubmit() {
     
@@ -108,8 +106,6 @@ function clearInputs() {
 function saveToLocalstorage() {
     localStorage.setItem('product', JSON.stringify(data));
 }
-
-
 
 // Read
 function showData(){
